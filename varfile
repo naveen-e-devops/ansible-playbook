@@ -1,0 +1,5 @@
+pack1: apache2
+pack2: tree
+pack3: unzip
+pack4: wget
+insta: absent

@@ -1,0 +1,25 @@
+---
+
+- hosts: centos1
+  become: yes
+  tasks:
+  
+    - name: create a file
+      file:
+        path: /home/ansadm/java.txt
+        state: touch
+        owner: root
+        group: ansadm
+        mode: 0666
+
+    - name: download tomcat 8 version
+      get_url:
+        url: http://mirrors.estointernet.in/apache/tomcat/tomcat-8/v8.5.50/bin/apache-tomcat-8.5.50.tar.gz
+        dest: /home/ansadm
+
+
+    - name: untar tomcat 8 
+      unarchive:
+        src: /home/ansadm/apache-tomcat-8.5.50.tar.gz
+        dest: /home/ansadm
+        remote_src: yes   
