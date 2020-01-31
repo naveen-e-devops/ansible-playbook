@@ -2,6 +2,9 @@
 
 - hosts: centos1
   become: yes
+  vars:
+    tomcaturl: http://mirrors.estointernet.in/apache/tomcat/tomcat-8/v8.5.50/bin/apache-tomcat-8.5.50.tar.gz
+
   tasks:
   
     - name: create a file
@@ -14,12 +17,20 @@
 
     - name: download tomcat 8 version
       get_url:
-        url: http://mirrors.estointernet.in/apache/tomcat/tomcat-8/v8.5.50/bin/apache-tomcat-8.5.50.tar.gz
+        url: "{{tomcaturl}}"
         dest: /home/ansadm
+      register: tomout
+
+    - name: print tomcat download output
+      debug:
+        msg: "{{tomout}}"
 
 
     - name: untar tomcat 8 
       unarchive:
-        src: /home/ansadm/apache-tomcat-8.5.50.tar.gz
+        src: "{{tomout.dest}}"
         dest: /home/ansadm
-        remote_src: yes   
+        remote_src: yes  
+
+    - name: start tomcat
+      shell: nohop /home/ansadm/apache-tomcat-8.5.50/bin/startup.sh &  
