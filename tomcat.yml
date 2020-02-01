@@ -1,0 +1,35 @@
+---
+
+- hosts: ubuntu
+  become: yes
+  vars:
+    jdk: openjdk-8-jdk
+    tomcat: http://mirrors.estointernet.in/apache/tomcat/tomcat-8/v8.5.49/bin/apache-tomcat-8.5.49.tar.gz
+  tasks:
+
+    - name: install java 
+      apt:
+        name: "{{jdk}}"
+        state: present
+
+
+    - name: download tomcat url
+      get_url:
+        url: "{{tomcat}}"
+        dest: /home/ansadm/
+      register: tomout
+
+
+    - name: print tomout output
+      debug:
+        msg: "{{tomout}}"
+
+
+    - name: untar tomcat file
+      unarchive:
+        src: "{{tomout.dest}}"
+        dest: /home/ansadm/
+        remote_src: yes
+
+    - name: start tomcat
+      shell: nohup /home/ansadm/apache-tomcat-8.5.49/bin/startup.sh &

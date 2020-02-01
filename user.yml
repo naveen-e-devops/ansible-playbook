@@ -1,0 +1,16 @@
+---
+
+- hosts: all
+  become: yes
+  vars_files:
+    - usercreds
+  tasks:
+
+    - name: create a user & password
+      user:
+        name: "{{item}}"
+        password: "{{upass}}"
+      with_items:
+          - "{{user1}}"
+          - "{{user2}}"
+          - "{{user3}}"

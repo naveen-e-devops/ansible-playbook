@@ -1,0 +1,22 @@
+---
+
+- hosts: all
+  become: yes
+  gather_facts: true
+  ignore_errors: yes
+  tasks:
+
+    - name: print ipv4 
+      debug:
+        msg: "{{ansible_all_ipv4_addresses}}"
+      tags: ip
+ 
+    - name: print os 
+      debug:
+        msg: "{{ansible_os_family}}"
+      tags: os
+
+    - name: print pkg 
+      debug:
+        msg: "{{ansible_pkg_mgr}}"
+      tags: pack
