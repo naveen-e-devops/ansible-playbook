@@ -1,0 +1,7 @@
+---
+# vars file for web
+
+web: apache2
+jdk: openjdk-8-jdk 
+extract: unzip
+download: wget

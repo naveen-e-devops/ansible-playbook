@@ -1,0 +1,43 @@
+---
+# tasks file for web 
+    - name: install packages 
+      apt:
+        name: "{{item}}"
+        state: present
+      with_items:
+          - "{{web}}"
+          - "{{jdk}}"
+          - "{{extract}}"
+          - "{{download}}"
+
+    - name: start apache2 service
+      service:
+        name: "{{web}}"
+        state: started
+
+    - name: create a user & password
+      user:
+        name: "{{item}}"
+        password: "{{upass}}"
+      with_items:
+          - "{{user1}}"
+          - "{{user2}}"
+          - "{{user3}}"
+ 
+    - name: copy index.j2 file
+      template:
+        src: index.j2
+        dest: /var/www/html/index.html
+
+
+    - name: copy config file
+      copy: 
+        src: java.txt
+        dest: /tmp
+
+    - name: changing port no of web-server
+      replace:
+        path: /etc/apache2/ports.conf
+        regexp: '^Listen 80'
+        replace: 'Listen 90'
+      notify: restart apache2

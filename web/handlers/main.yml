@@ -1,0 +1,6 @@
+---
+# handlers file for web
+- name: restart apache2
+  service:
+    name: "{{web}}"
+    state: restarted
