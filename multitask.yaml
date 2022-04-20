@@ -1,0 +1,28 @@
+---
+- hosts: centos
+  become: yes
+  gather_facts: false
+  tasks:
+
+    - name: install httpd
+      yum:
+        name: httpd
+        state: installed
+
+
+    - name: start service
+      service: 
+        name: httpd
+        state: started
+
+  
+    - name: copy index file
+      copy:
+        src: index.html
+        dest: /var/www/html
+
+
+    - name: create a dir
+      file:
+        path: /tmp/new-dir
+        state: directory

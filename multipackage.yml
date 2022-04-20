@@ -1,0 +1,14 @@
+---
+- hosts: ubuntu
+  become: yes
+  tasks:
+
+    - name: install unzip
+      apt:
+       name: "{{item}}"
+       state: present
+      with_items:
+        - unzip
+        - wget
+        - apache2
+        - python 

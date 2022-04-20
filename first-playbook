@@ -1,0 +1,17 @@
+---
+- hosts: ubuntu
+  become: yes
+  tasks:
+    - name: install apache2 package
+      apt:
+        name: apache2
+        state: absent 
+    - name: start apache2 service
+      service:
+        name: apache2
+        state: stopped
+    - name: check apache2 running status
+      shell: systemctl status apache2            
+
+
+
