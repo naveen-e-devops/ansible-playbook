@@ -1,0 +1,33 @@
+---
+
+- hosts: centos1
+  become: yes
+  vars:
+    os: REDHAT
+  tasks:
+
+    - name: install httpd package
+      yum:
+        name: httpd
+        state: present
+
+    - name: start httpd service
+      service:
+        name: httpd
+        state: started
+        enabled: yes
+
+    - name: copy index.html file
+      template:
+        src: template/index.j2 
+        dest: /var/www/html/index.html
+      notify: restart httpd
+
+
+
+
+  handlers:
+    - name: restart httpd 
+      service:
+        name: httpd
+        state: restarted

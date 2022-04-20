@@ -1,0 +1,18 @@
+---
+- hosts: ubuntu1
+  become: yes
+  tasks:
+
+    - name: install apache2
+      apt: 
+        name: apache2
+        state: present
+
+
+    - name: start apache2
+      service:
+        name: apache2
+        state: stopped
+
+
+   

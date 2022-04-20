@@ -1,0 +1,18 @@
+---
+
+- hosts: all
+  become: yes
+  gather_facts: true
+  tasks:
+
+    - name: print ipv4 
+      debug:
+        msg: "{{ansible_all_ipv4_addresses}}"
+   
+    - name: print ipv4 
+      debug:
+        msg: "{{ansible_os_family}}"
+   
+    - name: print ipv4 
+      debug:
+        msg: "{{ansible_pkg_mgr}}"
